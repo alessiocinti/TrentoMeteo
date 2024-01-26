@@ -4,29 +4,32 @@ namespace TrentoMeteoApp
     {
         public static void Main(string[] args)
         {
+            //Crea oggetto per la configurazione app web
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            //Aggiunge il servizio per supporto del controller
             builder.Services.AddControllersWithViews();
+            
+            //Cosstruzione appweb
+            var appweb = builder.Build();
 
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            //Configuarazione app web
+            if (!appweb.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Meteo/Error");
+                appweb.UseExceptionHandler("/Meteo/Error");
             }
-            app.UseStaticFiles();
+            appweb.UseStaticFiles();
 
-            app.UseRouting();
+            appweb.UseRouting();
 
-            app.UseAuthorization();
+            appweb.UseAuthorization();
 
-            app.MapControllerRoute(
+            //Mapping della rotta che userà il controller
+            appweb.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Meteo}/{action=Index}/{id?}");
-
-            app.Run();
+            //Esecuzione dell'app
+            appweb.Run();
         }
     }
 }

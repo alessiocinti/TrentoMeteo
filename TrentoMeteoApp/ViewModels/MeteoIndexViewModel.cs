@@ -4,6 +4,7 @@ namespace TrentoMeteoApp.ViewModels
 {
     public class MeteoIndexViewModel
     {
-        public Giorni[] listaGiorni { get; set; }
+        //array dei giorni metereologici
+        public Giorni[] giorni { get; set; }
     }
 }

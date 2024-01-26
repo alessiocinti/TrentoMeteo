@@ -9,32 +9,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bollettino Meteorologico</title>
+    <!-- Titolo pagina -->
+    <title>Meteo Trento</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Collegamento file di Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Stile personalizzato -->
+    <style>
+        body {
+            background-color: #2C3E50;
+            color: #ECF0F1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        h1, h2, h3 {
+            color: #3498DB;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: white;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            color: white;
+        }
+
+        button {
+            background-color: #E74C3C;
+            color: #ECF0F1;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #C0392B;
+            }
+        /*Stili per la card delle informazioni meteo*/
+        .card {
+            background-color: #3498DB;
+            color: #ECF0F1;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        /*Stili per l'intestazione della card*/
+        .card-header {
+            background-color: #2980B9;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .row-cols-1 .col,
+        .row-cols-sm-2 .col,
+        .row-cols-md-3 .col,
+        .row-cols-lg-4 .col {
+            padding: 0 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center">Provincia di Trento</h1>
+    <div class="container">
+        <h1 class="text-center">Meteo Trento</h1>
         <h2 class="text-center">Bollettino Meteorologico</h2>
-        <h3 class="text-center">Fonte dati: <a href="https://www.meteotrentino.it" target="_blank">Meteo Trentino</a></p> </h3>
 
-        <form action="/weather?day=" method="get">
+        <!--Form ricerca giorno meteo-->
+        <form action="/meteo?day=" method="get">
             <div class="input-group mb-3">
                 <input type="date" class="form-control" name="day">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Cerca</button>
+                    <button class="btn" type="submit" style="background-color: #E74C3C;">Cerca</button>
                 </div>
             </div>
         </form>
 
-        <div id="meteo-container" class="mt-4">
-            @foreach (var giorno in Model.listaGiorni)
+        <div id="meteo-container">
+            @foreach (var giorno in Model.giorni)
             {
-                <div class="card mb-4">
+                <div class="card">
                     <div class="card-header">
                         <h3>@giorno.giorno</h3>
                     </div>
@@ -47,7 +144,7 @@
                             @foreach (var fascia in giorno.fasce)
                             {
                                 <div class="col mb-4">
-                                    <div class="card h-100">
+                                    <div class="card">
                                         <div class="card-header">
                                             <h5 class="card-title">@fascia.fasciaPer (ore @fascia.fasciaOre)</h5>
                                         </div>
@@ -65,4 +162,5 @@
         </div>
     </div>
 </body>
+
 </html>
